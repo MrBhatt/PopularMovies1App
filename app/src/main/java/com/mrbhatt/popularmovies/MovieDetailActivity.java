@@ -15,6 +15,7 @@ public class MovieDetailActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
+        setTitle(getString(R.string.MovieDetailPageHeading));
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView titleTextView = (TextView) findViewById(R.id.movieTitle);

@@ -9,15 +9,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.mrbhatt.popularmovies.MovieDetailActivity"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:textAlignment="center">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Title"
         android:id="@+id/movieTitle"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:background="#0099ff"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:padding="20dp"
+        android:textSize="50dp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,6 +53,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Overview"
-        android:id="@+id/moviePlot" />
+        android:id="@+id/moviePlot"
+        android:textColor="#444444"
+        android:textIsSelectable="false" />
 
 </LinearLayout>
