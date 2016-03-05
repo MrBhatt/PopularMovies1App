@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.mrbhatt.popularmovies.async.PullImageTask;
 import com.mrbhatt.popularmovies.dto.Results;
@@ -36,6 +39,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (!isNetworkAvailable()) {
+            displayErorToaster();
+            return;
+        }
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         currentSortPreference = getSortPreference();
@@ -91,6 +99,12 @@ public class MainActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
+
+        if (!isNetworkAvailable()) {
+            displayErorToaster();
+            return;
+        }
+
         String updatedSortPreference = getSortPreference();
         if (!currentSortPreference.equalsIgnoreCase(updatedSortPreference)) {
             imageAdapter.setUrls(getPosters(updatedSortPreference));
@@ -116,6 +130,20 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        }
+        return false;
+    }
+
+    private void displayErorToaster() {
+        Toast.makeText(getApplicationContext(), "This application requires internet connection!", Toast.LENGTH_LONG).show();
     }
 
 
